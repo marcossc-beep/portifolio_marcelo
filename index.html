@@ -3,8 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portfólio Escolar</title>
+    <title>Portfólio Escolar Acessível</title>
     <style>
+        /* Configurações de Acessibilidade e Estilo */
         body {
             font-family: sans-serif;
             line-height: 1.6;
@@ -12,81 +13,157 @@
             color: #000000;
             max-width: 900px;
             margin: 0 auto;
-            padding: 20px;
+            padding: 120px 20px 50px 20px; /* Padding superior maior por causa do header fixo */
         }
+
         header {
-            border-bottom: 3px solid #000;
-            margin-bottom: 30px;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: #000000;
+            color: #ffffff;
+            z-index: 1000;
+            padding: 10px 0;
+            border-bottom: 3px solid #ffcc00;
         }
+
+        .nav-container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        nav ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        nav a {
+            color: #ffffff;
+            text-decoration: underline;
+            font-weight: bold;
+            font-size: 12pt;
+            padding: 5px;
+        }
+
+        /* Destaque para navegação via TAB */
+        nav a:focus, section:target h2 {
+            outline: 4px solid #ffcc00;
+            background-color: #333;
+            color: #fff;
+        }
+
         section {
-            margin-bottom: 25px;
-            padding: 10px;
+            margin-bottom: 40px;
+            padding-top: 20px; /* Ajuda o scroll a não cortar o título */
             border-bottom: 1px solid #ccc;
         }
+
         h1 {
-            font-size: 24pt;
-        }
-        h2 {
             font-size: 18pt;
-            margin-top: 0;
+            margin: 5px 0;
         }
+
+        h2 {
+            font-size: 20pt;
+            color: #003366;
+        }
+
         p {
             font-size: 14pt;
+        }
+
+        /* Atalho invisível para leitores de tela irem direto ao conteúdo */
+        .skip-link {
+            position: absolute;
+            top: -100px;
+            left: 0;
+            background: #ffcc00;
+            color: #000;
+            padding: 8px;
+            z-index: 1001;
+        }
+        .skip-link:focus {
+            top: 0;
         }
     </style>
 </head>
 <body>
 
+    <a href="#conteudo-principal" class="skip-link">Pular para o conteúdo principal</a>
+
     <header>
-        <h1>Portfólio de Atividades</h1>
+        <div class="nav-container">
+            <h1>Portfólio Escolar</h1>
+            <nav aria-label="Menu de disciplinas">
+                <ul>
+                    <li><a href="#biologia">Biologia</a></li>
+                    <li><a href="#educacao-fisica">Educação Física</a></li>
+                    <li><a href="#filosofia">Filosofia</a></li>
+                    <li><a href="#fisica">Física</a></li>
+                    <li><a href="#geografia">Geografia</a></li>
+                    <li><a href="#historia">História</a></li>
+                    <li><a href="#matematica">Matemática</a></li>
+                    <li><a href="#portugues">Português</a></li>
+                    <li><a href="#projeto-vida">Projeto de Vida</a></li>
+                </ul>
+            </nav>
+        </div>
     </header>
 
-    <main>
-        <section>
+    <main id="conteudo-principal">
+
+        <section id="biologia">
             <h2>Biologia</h2>
             <p>O trabalho de biologia foi um trabalho proposto pela professora que pediu para fazer uma pesquisa sobre o sistema locomotor.</p>
         </section>
 
-        <section>
+        <section id="educacao-fisica">
             <h2>Educação Física</h2>
             <p>o trabalho de educação física foi uma proposta do professor para a turma fazer um trabalho sobre lazer. nós fizemos algumas atividades na sala e algumas na quadra.</p>
         </section>
 
-        <section>
+        <section id="filosofia">
             <h2>Filosofia</h2>
             <p>O trabalho de filosofia foi uma proposta da professora que pediu pra turma se dividir em grupos e era para a gente falar sobre os filósofos iluministas.</p>
         </section>
 
-        <section>
+        <section id="fisica">
             <h2>Física</h2>
             <p>O trabalho de física foi uma proposta do professor e ele pediu para a turma se dividir em grupos. Um grupo era a construção, o segundo era o manual em texto e o terceiro era a gravação de um vídeo mostrando a construção. Esse trabalho foi construir um aquecedor solar.</p>
         </section>
 
-        <section>
+        <section id="geografia">
             <h2>Geografia</h2>
             <p>O trabalho de geografia foi um trabalho que a professora pediu pra fazer sobre as migrações. Ela separou a sala em grupos e sorteou algumas migrações.</p>
         </section>
 
-        <section>
+        <section id="historia">
             <h2>História</h2>
             <p>A atividade sobre a escravidão foi uma proposta da professora que pediu para a gente fazer uma produção escrita sobre a abolição no Brasil.</p>
         </section>
 
-        <section>
+        <section id="matematica">
             <h2>Matemática</h2>
             <p>Essa atividade foi proposta pelo professor de matemática que pediu para fazer uma pesquisa sobre logaritmo e suas propriedades.</p>
         </section>
 
-        <section>
+        <section id="portugues">
             <h2>Português</h2>
             <p>Essa atividade foi pedida pela professora de português e a proposta foi pesquisar uma letra de uma música que falava sobre racismo, pobreza e coisas relacionadas. A música que eu coloquei foi they don’t care about us do Michael Jackson.</p>
         </section>
 
-        <section>
+        <section id="projeto-vida">
             <h2>Projeto de Vida</h2>
             <p><strong>Atividade 1:</strong> O trabalho de projeto de vida foi uma proposta da professora que pediu para a turma se dividir em grupos de 3 pessoas e ela sorteou os temas. O trabalho era sobre estatutos.</p>
             <p><strong>Atividade 2:</strong> O trabalho dos estereótipos foi uma proposta da professora de projeto de vida que pediu para a turma fazer duplas e pesquisar coisas que tinham estereótipos.</p>
         </section>
+
     </main>
 
 </body>
