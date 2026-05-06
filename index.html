@@ -4,167 +4,127 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Portfólio Escolar Acessível</title>
+    <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        /* Configurações de Acessibilidade e Estilo */
-        body {
-            font-family: sans-serif;
-            line-height: 1.6;
-            background-color: #ffffff;
-            color: #000000;
-            max-width: 900px;
-            margin: 0 auto;
-            padding: 120px 20px 50px 20px; /* Padding superior maior por causa do header fixo */
+        /* Suaviza o scroll para quando clicar nas âncoras */
+        html {
+            scroll-behavior: smooth;
         }
-
-        header {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            background-color: #000000;
-            color: #ffffff;
-            z-index: 1000;
-            padding: 10px 0;
-            border-bottom: 3px solid #ffcc00;
-        }
-
-        .nav-container {
-            max-width: 900px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-
-        nav ul {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-            display: flex;
-            flex-wrap: wrap;
-            gap: 15px;
-        }
-
-        nav a {
-            color: #ffffff;
-            text-decoration: underline;
-            font-weight: bold;
-            font-size: 12pt;
-            padding: 5px;
-        }
-
-        /* Destaque para navegação via TAB */
-        nav a:focus, section:target h2 {
-            outline: 4px solid #ffcc00;
-            background-color: #333;
-            color: #fff;
-        }
-
-        section {
-            margin-bottom: 40px;
-            padding-top: 20px; /* Ajuda o scroll a não cortar o título */
-            border-bottom: 1px solid #ccc;
-        }
-
-        h1 {
-            font-size: 18pt;
-            margin: 5px 0;
-        }
-
-        h2 {
-            font-size: 20pt;
-            color: #003366;
-        }
-
-        p {
-            font-size: 14pt;
-        }
-
-        /* Atalho invisível para leitores de tela irem direto ao conteúdo */
-        .skip-link {
-            position: absolute;
-            top: -100px;
-            left: 0;
-            background: #ffcc00;
-            color: #000;
-            padding: 8px;
-            z-index: 1001;
-        }
-        .skip-link:focus {
-            top: 0;
+        /* Garante que o foco seja visível para quem navega via teclado */
+        *:focus {
+            outline: 4px solid #3b82f6 !important;
+            outline-offset: 4px;
         }
     </style>
 </head>
-<body>
+<body class="bg-slate-50 text-slate-900 antialiased">
 
-    <a href="#conteudo-principal" class="skip-link">Pular para o conteúdo principal</a>
+    <a href="#conteudo-principal" 
+       class="absolute left-4 -top-16 focus:top-4 bg-blue-600 text-white px-4 py-2 rounded-md z-[100] transition-all">
+       Pular para o conteúdo principal
+    </a>
 
-    <header>
-        <div class="nav-container">
-            <h1>Portfólio Escolar</h1>
-            <nav aria-label="Menu de disciplinas">
-                <ul>
-                    <li><a href="#biologia">Biologia</a></li>
-                    <li><a href="#educacao-fisica">Educação Física</a></li>
-                    <li><a href="#filosofia">Filosofia</a></li>
-                    <li><a href="#fisica">Física</a></li>
-                    <li><a href="#geografia">Geografia</a></li>
-                    <li><a href="#historia">História</a></li>
-                    <li><a href="#matematica">Matemática</a></li>
-                    <li><a href="#portugues">Português</a></li>
-                    <li><a href="#projeto-vida">Projeto de Vida</a></li>
+    <header class="fixed top-0 w-full bg-white border-b border-slate-200 z-50 shadow-sm">
+        <div class="max-w-5xl mx-auto px-4 py-4">
+            <h1 class="text-xl font-bold text-slate-800 mb-4 text-center md:text-left">Portfólio de Atividades</h1>
+            
+            <nav aria-label="Navegação por Disciplinas">
+                <ul class="flex flex-wrap justify-center md:justify-start gap-2">
+                    <li><a href="#biologia" class="px-3 py-1 bg-slate-100 hover:bg-blue-100 rounded-full text-sm font-medium transition-colors border border-slate-200 inline-block">Biologia</a></li>
+                    <li><a href="#educacao-fisica" class="px-3 py-1 bg-slate-100 hover:bg-blue-100 rounded-full text-sm font-medium transition-colors border border-slate-200 inline-block">Educação Física</a></li>
+                    <li><a href="#filosofia" class="px-3 py-1 bg-slate-100 hover:bg-blue-100 rounded-full text-sm font-medium transition-colors border border-slate-200 inline-block">Filosofia</a></li>
+                    <li><a href="#fisica" class="px-3 py-1 bg-slate-100 hover:bg-blue-100 rounded-full text-sm font-medium transition-colors border border-slate-200 inline-block">Física</a></li>
+                    <li><a href="#geografia" class="px-3 py-1 bg-slate-100 hover:bg-blue-100 rounded-full text-sm font-medium transition-colors border border-slate-200 inline-block">Geografia</a></li>
+                    <li><a href="#historia" class="px-3 py-1 bg-slate-100 hover:bg-blue-100 rounded-full text-sm font-medium transition-colors border border-slate-200 inline-block">História</a></li>
+                    <li><a href="#matematica" class="px-3 py-1 bg-slate-100 hover:bg-blue-100 rounded-full text-sm font-medium transition-colors border border-slate-200 inline-block">Matemática</a></li>
+                    <li><a href="#portugues" class="px-3 py-1 bg-slate-100 hover:bg-blue-100 rounded-full text-sm font-medium transition-colors border border-slate-200 inline-block">Português</a></li>
+                    <li><a href="#projeto-vida" class="px-3 py-1 bg-slate-100 hover:bg-blue-100 rounded-full text-sm font-medium transition-colors border border-slate-200 inline-block text-blue-700 font-bold border-blue-200">Projeto de Vida</a></li>
                 </ul>
             </nav>
         </div>
     </header>
 
-    <main id="conteudo-principal">
-
-        <section id="biologia">
-            <h2>Biologia</h2>
-            <p>O trabalho de biologia foi um trabalho proposto pela professora que pediu para fazer uma pesquisa sobre o sistema locomotor.</p>
+    <main id="conteudo-principal" class="max-w-4xl mx-auto px-4 pt-48 pb-20">
+        
+        <section id="biologia" class="mb-16 scroll-mt-48 group">
+            <div class="border-l-4 border-emerald-500 pl-6 py-2 bg-white shadow-sm rounded-r-lg p-6 transition-transform hover:scale-[1.01]">
+                <h2 class="text-3xl font-black text-slate-800 mb-4 uppercase tracking-tight">Biologia</h2>
+                <p class="text-lg leading-relaxed text-slate-700">O trabalho de biologia foi um trabalho proposto pela professora que pediu para fazer uma pesquisa sobre o sistema locomotor.</p>
+            </div>
         </section>
 
-        <section id="educacao-fisica">
-            <h2>Educação Física</h2>
-            <p>o trabalho de educação física foi uma proposta do professor para a turma fazer um trabalho sobre lazer. nós fizemos algumas atividades na sala e algumas na quadra.</p>
+        <section id="educacao-fisica" class="mb-16 scroll-mt-48">
+            <div class="border-l-4 border-orange-500 pl-6 py-2 bg-white shadow-sm rounded-r-lg p-6 transition-transform hover:scale-[1.01]">
+                <h2 class="text-3xl font-black text-slate-800 mb-4 uppercase tracking-tight">Educação Física</h2>
+                <p class="text-lg leading-relaxed text-slate-700">o trabalho de educação física foi uma proposta do professor para a turma fazer um trabalho sobre lazer. nós fizemos algumas atividades na sala e algumas na quadra.</p>
+            </div>
         </section>
 
-        <section id="filosofia">
-            <h2>Filosofia</h2>
-            <p>O trabalho de filosofia foi uma proposta da professora que pediu pra turma se dividir em grupos e era para a gente falar sobre os filósofos iluministas.</p>
+        <section id="filosofia" class="mb-16 scroll-mt-48">
+            <div class="border-l-4 border-purple-600 pl-6 py-2 bg-white shadow-sm rounded-r-lg p-6 transition-transform hover:scale-[1.01]">
+                <h2 class="text-3xl font-black text-slate-800 mb-4 uppercase tracking-tight">Filosofia</h2>
+                <p class="text-lg leading-relaxed text-slate-700">O trabalho de filosofia foi uma proposta da professora que pediu pra turma se dividir em grupos e era para a gente falar sobre os filósofos iluministas.</p>
+            </div>
         </section>
 
-        <section id="fisica">
-            <h2>Física</h2>
-            <p>O trabalho de física foi uma proposta do professor e ele pediu para a turma se dividir em grupos. Um grupo era a construção, o segundo era o manual em texto e o terceiro era a gravação de um vídeo mostrando a construção. Esse trabalho foi construir um aquecedor solar.</p>
+        <section id="fisica" class="mb-16 scroll-mt-48">
+            <div class="border-l-4 border-blue-600 pl-6 py-2 bg-white shadow-sm rounded-r-lg p-6 transition-transform hover:scale-[1.01]">
+                <h2 class="text-3xl font-black text-slate-800 mb-4 uppercase tracking-tight">Física</h2>
+                <p class="text-lg leading-relaxed text-slate-700">O trabalho de física foi uma proposta do professor e ele pediu para a turma se dividir em grupos. Um grupo era a construção, o segundo era o manual em texto e o terceiro era a gravação de um vídeo mostrando a construção. Esse trabalho foi construir um aquecedor solar.</p>
+            </div>
         </section>
 
-        <section id="geografia">
-            <h2>Geografia</h2>
-            <p>O trabalho de geografia foi um trabalho que a professora pediu pra fazer sobre as migrações. Ela separou a sala em grupos e sorteou algumas migrações.</p>
+        <section id="geografia" class="mb-16 scroll-mt-48">
+            <div class="border-l-4 border-amber-600 pl-6 py-2 bg-white shadow-sm rounded-r-lg p-6 transition-transform hover:scale-[1.01]">
+                <h2 class="text-3xl font-black text-slate-800 mb-4 uppercase tracking-tight">Geografia</h2>
+                <p class="text-lg leading-relaxed text-slate-700">O trabalho de geografia foi um trabalho que a professora pediu pra fazer sobre as migrações. Ela separou a sala em grupos e sorteou algumas migrações.</p>
+            </div>
         </section>
 
-        <section id="historia">
-            <h2>História</h2>
-            <p>A atividade sobre a escravidão foi uma proposta da professora que pediu para a gente fazer uma produção escrita sobre a abolição no Brasil.</p>
+        <section id="historia" class="mb-16 scroll-mt-48">
+            <div class="border-l-4 border-red-700 pl-6 py-2 bg-white shadow-sm rounded-r-lg p-6 transition-transform hover:scale-[1.01]">
+                <h2 class="text-3xl font-black text-slate-800 mb-4 uppercase tracking-tight">História</h2>
+                <p class="text-lg leading-relaxed text-slate-700">A atividade sobre a escravidão foi uma proposta da professora que pediu para a gente fazer uma produção escrita sobre a abolição no Brasil.</p>
+            </div>
         </section>
 
-        <section id="matematica">
-            <h2>Matemática</h2>
-            <p>Essa atividade foi proposta pelo professor de matemática que pediu para fazer uma pesquisa sobre logaritmo e suas propriedades.</p>
+        <section id="matematica" class="mb-16 scroll-mt-48">
+            <div class="border-l-4 border-indigo-600 pl-6 py-2 bg-white shadow-sm rounded-r-lg p-6 transition-transform hover:scale-[1.01]">
+                <h2 class="text-3xl font-black text-slate-800 mb-4 uppercase tracking-tight">Matemática</h2>
+                <p class="text-lg leading-relaxed text-slate-700">Essa atividade foi proposta pelo professor de matemática que pediu para fazer uma pesquisa sobre logaritmo e suas propriedades.</p>
+            </div>
         </section>
 
-        <section id="portugues">
-            <h2>Português</h2>
-            <p>Essa atividade foi pedida pela professora de português e a proposta foi pesquisar uma letra de uma música que falava sobre racismo, pobreza e coisas relacionadas. A música que eu coloquei foi they don’t care about us do Michael Jackson.</p>
+        <section id="portugues" class="mb-16 scroll-mt-48">
+            <div class="border-l-4 border-rose-500 pl-6 py-2 bg-white shadow-sm rounded-r-lg p-6 transition-transform hover:scale-[1.01]">
+                <h2 class="text-3xl font-black text-slate-800 mb-4 uppercase tracking-tight">Português</h2>
+                <p class="text-lg leading-relaxed text-slate-700 italic">Essa atividade foi pedida pela professora de português e a proposta foi pesquisar uma letra de uma música que falava sobre racismo, pobreza e coisas relacionadas. A música que eu coloquei foi "They Don’t Care About Us" do Michael Jackson.</p>
+            </div>
         </section>
 
-        <section id="projeto-vida">
-            <h2>Projeto de Vida</h2>
-            <p><strong>Atividade 1:</strong> O trabalho de projeto de vida foi uma proposta da professora que pediu para a turma se dividir em grupos de 3 pessoas e ela sorteou os temas. O trabalho era sobre estatutos.</p>
-            <p><strong>Atividade 2:</strong> O trabalho dos estereótipos foi uma proposta da professora de projeto de vida que pediu para a turma fazer duplas e pesquisar coisas que tinham estereótipos.</p>
+        <section id="projeto-vida" class="mb-16 scroll-mt-48">
+            <div class="border-l-4 border-cyan-500 pl-6 py-2 bg-white shadow-sm rounded-r-lg p-6 transition-transform hover:scale-[1.01]">
+                <h2 class="text-3xl font-black text-slate-800 mb-6 uppercase tracking-tight">Projeto de Vida</h2>
+                
+                <div class="space-y-6">
+                    <article class="p-4 bg-slate-50 rounded-md border border-slate-100">
+                        <h3 class="text-xl font-bold text-slate-700 mb-2">Atividade 1</h3>
+                        <p class="text-lg text-slate-700">O trabalho de projeto de vida foi uma proposta da professora que pediu para a turma se dividir em grupos de 3 pessoas e ela sorteou os temas. O trabalho era sobre estatutos.</p>
+                    </article>
+
+                    <article class="p-4 bg-slate-50 rounded-md border border-slate-100">
+                        <h3 class="text-xl font-bold text-slate-700 mb-2">Atividade 2</h3>
+                        <p class="text-lg text-slate-700">O trabalho dos estereótipos foi uma proposta da professora de projeto de vida que pediu para a turma fazer duplas e pesquisar coisas que tinham estereótipos.</p>
+                    </article>
+                </div>
+            </div>
         </section>
 
     </main>
+
+    <footer class="bg-slate-900 text-slate-400 py-10 text-center text-sm">
+        <p>Portfólio Escolar - Conteúdo Extraído de Documentos</p>
+    </footer>
 
 </body>
 </html>
