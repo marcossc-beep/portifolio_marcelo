@@ -29,7 +29,7 @@
     </header>
 
     <main id="conteudo-principal" class="max-w-3xl mx-auto px-6 pt-48">
-        <div id="loading" class="text-center text-slate-400 italic">Carregando portfólio...</div>
+        <div id="loading-box" class="text-center text-slate-400 italic">Carregando portfólio...</div>
     </main>
 
     <div id="modal" class="fixed inset-0 bg-black/70 hidden items-center justify-center z-[110] p-4 backdrop-blur-sm">
@@ -38,7 +38,7 @@
             
             <div id="etapa-token" class="hidden">
                 <h2 class="text-xl font-bold mb-2">Acesso Restrito</h2>
-                <p class="text-sm text-slate-500 mb-6">Olá Marcelo, cole seu Token do GitHub para liberar a edição deste site.</p>
+                <p class="text-sm text-slate-500 mb-6">Cole seu Token do GitHub para liberar a edição.</p>
                 <input type="password" id="input-token" placeholder="Cole seu token aqui..." class="w-full border border-slate-200 p-4 rounded-2xl mb-4 outline-none focus:ring-2 ring-blue-100">
                 <button onclick="salvarToken()" class="w-full bg-slate-900 text-white py-4 rounded-2xl font-bold hover:bg-slate-800 transition-all">Validar e Continuar</button>
             </div>
@@ -69,7 +69,6 @@
         let listaMaterias = [];
         let shaAtual = '';
 
-        // Inicia carregando os dados do GitHub
         async function carregar() {
             try {
                 const url = `https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents/${FILE_PATH}`;
@@ -77,24 +76,29 @@
                 const data = await res.json();
                 shaAtual = data.sha;
                 // Decodifica JSON tratando acentos corretamente
-                listaMaterias = JSON.parse(decodeURIComponent(escape(atob(data.content))));
+                const decodedContent = decodeURIComponent(escape(atob(data.content)));
+                listaMaterias = JSON.parse(decodedContent);
                 renderizarSite();
             } catch (e) {
-                document.getElementById('loading').innerText = "Erro ao carregar matérias.";
+                const lb = document.getElementById('loading-box');
+                if(lb) lb.innerText = "Erro ao carregar matérias.";
+                console.error(e);
             }
         }
 
         function renderizarSite() {
             const menu = document.getElementById('menu-navegacao');
             const main = document.getElementById('conteudo-principal');
+            const loadingBox = document.getElementById('loading-box');
             const temToken = localStorage.getItem('marcelo_token');
             
-            menu.innerHTML = ''; main.innerHTML = '';
+            if(menu) menu.innerHTML = ''; 
+            if(main) main.innerHTML = '';
 
             listaMaterias.forEach((m, index) => {
-                menu.innerHTML += `<li><a href="#materia-${index}" class="text-sm font-medium text-slate-500 hover:text-slate-900">${m.nome}</a></li>`;
+                if(menu) menu.innerHTML += `<li><a href="#materia-${index}" class="text-sm font-medium text-slate-500 hover:text-slate-900">${m.nome}</a></li>`;
                 
-                main.innerHTML += `
+                if(main) main.innerHTML += `
                     <section id="materia-${index}" class="mb-14 bg-white rounded-3xl p-8 border border-slate-100 relative group shadow-sm hover:shadow-md transition-all">
                         ${temToken ? `<button onclick="deletarMateria(${index})" class="absolute top-6 right-6 text-red-300 hover:text-red-600 font-bold text-xs uppercase tracking-widest bg-red-50 px-3 py-1 rounded-full transition-colors">Deletar 🗑️</button>` : ''}
                         <h2 class="text-2xl font-bold text-slate-900 mb-4">${m.nome}</h2>
@@ -102,13 +106,13 @@
                     </section>
                 `;
             });
-            document.getElementById('loading').style.display = 'none';
+            if(loadingBox) loadingBox.style.display = 'none';
         }
 
         function abrirFluxoEdicao() {
             const modal = document.getElementById('modal');
             const token = localStorage.getItem('marcelo_token');
-            modal.style.display = 'flex';
+            if(modal) modal.style.display = 'flex';
 
             if (!token) {
                 document.getElementById('etapa-token').classList.remove('hidden');
@@ -123,8 +127,8 @@
             const token = document.getElementById('input-token').value.trim();
             if (token) {
                 localStorage.setItem('marcelo_token', token);
-                abrirFluxoEdicao(); // Pula para a etapa de cadastro
-                renderizarSite(); // Mostra os botões de deletar
+                abrirFluxoEdicao(); 
+                renderizarSite(); 
             }
         }
 
@@ -140,28 +144,34 @@
 
             const url = `https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents/${FILE_PATH}`;
             
-            // Função para converter string para Base64 respeitando UTF-8 (Acentos)
-            const contentBase64 = btoa(unescape(encodeURIComponent(JSON.stringify(novaLista, null, 2))));
+            // Corrige o problema de acentos no Base64
+            const jsonString = JSON.stringify(novaLista, null, 2);
+            const contentBase64 = btoa(unescape(encodeURIComponent(jsonString)));
 
-            const res = await fetch(url, {
-                method: 'PUT',
-                headers: { 'Authorization': `token ${token}`, 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    message: "Atualização via site",
-                    content: contentBase64,
-                    sha: shaAtual
-                })
-            });
+            try {
+                const res = await fetch(url, {
+                    method: 'PUT',
+                    headers: { 'Authorization': `token ${token}`, 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        message: "Atualização via site",
+                        content: contentBase64,
+                        sha: shaAtual
+                    })
+                });
 
-            if (res.ok) {
-                location.reload();
-            } else {
-                alert("Erro ao salvar! Verifique se seu token é válido.");
-                limparToken();
+                if (res.ok) {
+                    location.reload();
+                } else {
+                    alert("Erro ao salvar! Verifique se seu token tem permissão de 'repo'.");
+                    if(btn) { btn.innerText = "Publicar no Site"; btn.disabled = false; }
+                }
+            } catch(e) {
+                alert("Erro de conexão.");
+                if(btn) { btn.innerText = "Publicar no Site"; btn.disabled = false; }
             }
         }
 
-        function registrarMateria() {
+        function executarCadastro() {
             const nome = document.getElementById('form-nome').value;
             const texto = document.getElementById('form-texto').value;
             if(!nome || !texto) return alert("Preencha o título e o conteúdo!");
