@@ -3,95 +3,179 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portfólio Escolar</title>
+    <title>Portfólio do Marcelo</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Merriweather:wght@400;700&display=swap" rel="stylesheet">
     <style>
         html { scroll-behavior: smooth; }
         body { font-family: 'Inter', sans-serif; background-color: #faf9f6; }
         h1, h2, h3 { font-family: 'Merriweather', serif; }
-        .no-scrollbar::-webkit-scrollbar { display: none; }
-        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+        .admin-only { display: none; } /* Esconde por padrão */
     </style>
 </head>
-<body class="text-slate-800 antialiased selection:bg-slate-200">
+<body class="text-slate-800 antialiased pb-24">
 
     <header class="fixed top-0 w-full bg-white/90 backdrop-blur-sm border-b border-slate-200 z-50">
         <div class="max-w-4xl mx-auto px-6 py-5">
-            <h1 class="text-2xl font-bold text-slate-900 mb-5 text-center md:text-left">Portfólio do Marcelo - Primeiro Trimestre</h1>
+            <div class="flex justify-between items-center mb-5">
+                <h1 class="text-2xl font-bold text-slate-900">Portfólio do Marcelo</h1>
+                <button onclick="abrirModal()" class="admin-only bg-blue-600 text-white px-4 py-2 rounded-lg text-sm font-bold hover:bg-blue-700 transition-all">+ Nova Matéria</button>
+            </div>
             <nav aria-label="Navegação por Disciplinas" class="overflow-x-auto no-scrollbar">
-                <ul id="menu-navegacao" class="flex md:flex-wrap justify-start gap-5 md:gap-7 w-max md:w-auto pb-2 md:pb-0">
-                    </ul>
+                <ul id="menu-navegacao" class="flex md:flex-wrap justify-start gap-5 md:gap-7 w-max md:w-auto pb-2"></ul>
             </nav>
         </div>
     </header>
 
-    <main id="conteudo-principal" class="max-w-3xl mx-auto px-6 pt-48 pb-24">
-        <div id="loading" class="text-center text-slate-400">Carregando conteúdos...</div>
+    <main id="conteudo-principal" class="max-w-3xl mx-auto px-6 pt-48">
+        <div id="loading" class="text-center text-slate-400 italic">Carregando portfólio...</div>
     </main>
 
+    <div id="login-footer" class="fixed bottom-0 left-0 w-full bg-white border-t p-4 z-[100] transition-transform translate-y-full">
+        <div class="max-w-xl mx-auto flex gap-2">
+            <input type="password" id="gh-token" placeholder="Acesso do Marcelo (Token)" class="flex-1 border p-2 rounded-md text-sm outline-none focus:border-blue-500">
+            <button onclick="fazerLogin()" class="bg-slate-800 text-white px-4 py-2 rounded-md text-sm font-bold">Entrar</button>
+            <button onclick="toggleLogin(false)" class="text-slate-400 px-2 text-xs">X</button>
+        </div>
+    </div>
+
+    <button id="btn-lock" onclick="toggleLogin(true)" class="fixed bottom-4 right-4 w-10 h-10 bg-slate-200 rounded-full flex items-center justify-center opacity-30 hover:opacity-100 transition-all z-50">🔑</button>
+
+    <div id="modal" class="fixed inset-0 bg-black/60 hidden items-center justify-center z-[110] p-4 backdrop-blur-sm">
+        <div class="bg-white p-8 rounded-2xl max-w-md w-full shadow-2xl">
+            <h2 class="text-xl font-bold mb-4 text-slate-900">Nova Matéria</h2>
+            <input type="text" id="materia-nome" placeholder="Ex: Biologia" class="w-full border p-3 rounded-xl mb-3 outline-none focus:ring-2 ring-blue-100">
+            <textarea id="materia-texto" placeholder="O que você fez nessa matéria?" class="w-full border p-3 rounded-xl mb-4 h-40 outline-none focus:ring-2 ring-blue-100"></textarea>
+            <div class="flex gap-2">
+                <button onclick="salvarMateria()" id="btn-save" class="bg-blue-600 text-white flex-1 py-3 rounded-xl font-bold hover:bg-blue-700">Salvar no Site</button>
+                <button onclick="fecharModal()" class="bg-slate-100 text-slate-500 flex-1 py-3 rounded-xl hover:bg-slate-200">Cancelar</button>
+            </div>
+        </div>
+    </div>
+
     <script>
-        const menuContainer = document.getElementById('menu-navegacao');
-        const mainContainer = document.getElementById('conteudo-principal');
+        // CONFIGURAÇÕES DO GITHUB (Mantenha igual ao seu repositório)
+        const CONFIG = {
+            owner: 'marcossc-beep', 
+            repo: 'portifolio_marcelo',
+            path: 'materias.json'
+        };
+
+        let materiasAtuais = [];
+        let fileSHA = '';
+
+        // Inicia o site
+        async function iniciar() {
+            verificarAcesso();
+            await carregarDados();
+        }
+
+        // Verifica se o Marcelo já "logou" antes
+        function verificarAcesso() {
+            const tokenSalvo = localStorage.getItem('marcelo_token');
+            if (tokenSalvo) {
+                document.querySelectorAll('.admin-only').forEach(el => el.style.display = 'block');
+                document.getElementById('btn-lock').style.display = 'none';
+            }
+        }
+
+        function fazerLogin() {
+            const token = document.getElementById('gh-token').value;
+            if (token) {
+                localStorage.setItem('marcelo_token', token);
+                location.reload();
+            }
+        }
+
+        function toggleLogin(abrir) {
+            const footer = document.getElementById('login-footer');
+            footer.style.transform = abrir ? 'translateY(0)' : 'translateY(100%)';
+        }
 
         async function carregarDados() {
             try {
-                // Busca o arquivo JSON que você criou no seu GitHub
-                const resposta = await fetch('materias.json');
-                const disciplinas = await resposta.json();
-                renderizarSite(disciplinas);
-            } catch (erro) {
-                console.error("Erro:", erro);
-                mainContainer.innerHTML = "<p class='text-center text-red-500'>Erro ao carregar matérias. Verifique o arquivo materias.json.</p>";
+                const url = `https://api.github.com/repos/${CONFIG.owner}/${CONFIG.repo}/contents/${CONFIG.path}`;
+                const resp = await fetch(url);
+                if(!resp.ok) throw new Error();
+                const data = await resp.json();
+                
+                fileSHA = data.sha;
+                materiasAtuais = JSON.parse(atob(data.content));
+                renderizarSite(materiasAtuais);
+            } catch (e) {
+                document.getElementById('loading').innerHTML = "Erro ao carregar o portfólio.";
             }
         }
 
         function renderizarSite(disciplinas) {
-            menuContainer.innerHTML = '';
-            mainContainer.innerHTML = '';
+            const menu = document.getElementById('menu-navegacao');
+            const main = document.getElementById('conteudo-principal');
+            const logado = localStorage.getItem('marcelo_token');
+            
+            menu.innerHTML = ''; main.innerHTML = '';
 
-            disciplinas.forEach(disciplina => {
-                // 1. Cria o Link no Menu
-                const li = document.createElement('li');
-                li.innerHTML = `<a href="#${disciplina.id}" class="text-sm font-medium text-slate-500 hover:text-slate-900 transition-colors">${disciplina.nome}</a>`;
-                menuContainer.appendChild(li);
-
-                // 2. Cria a Seção de Conteúdo
-                const section = document.createElement('section');
-                section.id = disciplina.id;
-                section.className = "mb-14 scroll-mt-40";
-
-                let htmlConteudo = '';
-                if (disciplina.atividades) {
-                    const cards = disciplina.atividades.map(atv => `
-                        <article class="p-6 bg-[#faf9f6] rounded-xl border border-slate-100/50 mb-4">
-                            <h3 class="text-lg font-bold text-slate-800 mb-2">${atv.titulo}</h3>
-                            <p class="text-slate-600 leading-relaxed">${atv.desc}</p>
-                        </article>
-                    `).join('');
-                    htmlConteudo = `
-                        <div class="bg-white rounded-2xl p-8 shadow-sm border border-slate-100 hover:shadow-md transition-shadow">
-                            <h2 class="text-2xl font-bold text-slate-900 mb-8">${disciplina.nome}</h2>
-                            ${cards}
-                        </div>
-                    `;
-                } else {
-                    htmlConteudo = `
-                        <div class="bg-white rounded-2xl p-8 shadow-sm border border-slate-100 hover:shadow-md transition-shadow">
-                            <h2 class="text-2xl font-bold text-slate-900 mb-4">${disciplina.nome}</h2>
-                            <p class="text-lg leading-relaxed text-slate-600">${disciplina.texto}</p>
-                        </div>
-                    `;
-                }
-
-                section.innerHTML = htmlConteudo;
-                mainContainer.appendChild(section);
+            disciplinas.forEach((d, index) => {
+                menu.innerHTML += `<li><a href="#${d.id}" class="text-sm font-medium text-slate-500 hover:text-slate-900 transition-colors">${d.nome}</a></li>`;
+                
+                main.innerHTML += `
+                    <section id="${d.id}" class="mb-14 bg-white rounded-2xl p-8 border border-slate-100 relative group hover:shadow-lg transition-all">
+                        ${logado ? `<button onclick="deletarMateria(${index})" class="absolute top-4 right-4 text-red-300 hover:text-red-500 transition-colors text-xs font-bold">Excluir 🗑️</button>` : ''}
+                        <h2 class="text-2xl font-bold text-slate-900 mb-4">${d.nome}</h2>
+                        <p class="text-lg leading-relaxed text-slate-600">${d.texto}</p>
+                    </section>
+                `;
             });
         }
 
-        carregarDados();
+        async function salvarNoGitHub(novosDados) {
+            const token = localStorage.getItem('marcelo_token');
+            const btn = document.getElementById('btn-save');
+            btn.innerText = "Salvando...";
+            btn.disabled = true;
+
+            const url = `https://api.github.com/repos/${CONFIG.owner}/${CONFIG.repo}/contents/${CONFIG.path}`;
+            const body = {
+                message: "Atualização via Painel Marcelo",
+                content: btoa(unescape(encodeURIComponent(JSON.stringify(novosDados, null, 2)))),
+                sha: fileSHA
+            };
+
+            const resp = await fetch(url, {
+                method: 'PUT',
+                headers: { 'Authorization': `token ${token}` },
+                body: JSON.stringify(body)
+            });
+
+            if(resp.ok) {
+                location.reload();
+            } else {
+                alert("Erro de permissão. O token pode estar errado.");
+                localStorage.removeItem('marcelo_token');
+                location.reload();
+            }
+        }
+
+        function salvarMateria() {
+            const nome = document.getElementById('materia-nome').value;
+            const texto = document.getElementById('materia-texto').value;
+            if(!nome || !texto) return alert("Escreva o nome e o texto da matéria!");
+
+            const nova = { id: Date.now().toString(), nome: nome, texto: texto };
+            materiasAtuais.push(nova);
+            salvarNoGitHub(materiasAtuais);
+        }
+
+        function deletarMateria(index) {
+            if(confirm("Deseja mesmo apagar essa matéria?")) {
+                materiasAtuais.splice(index, 1);
+                salvarNoGitHub(materiasAtuais);
+            }
+        }
+
+        function abrirModal() { document.getElementById('modal').style.display = 'flex'; }
+        function fecharModal() { document.getElementById('modal').style.display = 'none'; }
+
+        iniciar();
     </script>
 </body>
 </html>
