@@ -11,24 +11,17 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Merriweather:wght@400;700&display=swap" rel="stylesheet">
     
     <style>
-        html {
-            scroll-behavior: smooth;
-        }
+        html { scroll-behavior: smooth; }
         body {
             font-family: 'Inter', sans-serif;
-            background-color: #faf9f6; /* Fundo off-white mais confortável */
+            background-color: #faf9f6;
         }
-        h1, h2, h3 {
-            font-family: 'Merriweather', serif; /* Fonte clássica para títulos */
-        }
+        h1, h2, h3 { font-family: 'Merriweather', serif; }
         *:focus {
             outline: 3px solid #94a3b8 !important;
             outline-offset: 3px;
         }
-        /* Esconde a barra de rolagem no menu em telas pequenas */
-        .no-scrollbar::-webkit-scrollbar {
-            display: none;
-        }
+        .no-scrollbar::-webkit-scrollbar { display: none; }
         .no-scrollbar {
             -ms-overflow-style: none;
             scrollbar-width: none;
@@ -39,110 +32,113 @@
 
     <a href="#conteudo-principal" 
        class="absolute left-4 -top-16 focus:top-4 bg-slate-800 text-white px-4 py-2 rounded-md z-[100] transition-all text-sm">
-       Pular para o conteúdo principal
+        Pular para o conteúdo principal
     </a>
 
     <header class="fixed top-0 w-full bg-white/90 backdrop-blur-sm border-b border-slate-200 z-50">
         <div class="max-w-4xl mx-auto px-6 py-5">
-            <h1 class="text-2xl font-bold text-slate-900 mb-5 text-center md:text-left">Portifólio do Marcelo Primeiro Trimestre.</h1>
+            <h1 class="text-2xl font-bold text-slate-900 mb-5 text-center md:text-left">Portfólio do Marcelo - Primeiro Trimestre</h1>
             
             <nav aria-label="Navegação por Disciplinas" class="overflow-x-auto no-scrollbar">
-                <ul class="flex md:flex-wrap justify-start gap-5 md:gap-7 w-max md:w-auto pb-2 md:pb-0">
-                    <li><a href="#biologia" class="text-sm font-medium text-slate-500 hover:text-slate-900 transition-colors">Biologia</a></li>
-                    <li><a href="#educacao-fisica" class="text-sm font-medium text-slate-500 hover:text-slate-900 transition-colors">Educação Física</a></li>
-                    <li><a href="#filosofia" class="text-sm font-medium text-slate-500 hover:text-slate-900 transition-colors">Filosofia</a></li>
-                    <li><a href="#fisica" class="text-sm font-medium text-slate-500 hover:text-slate-900 transition-colors">Física</a></li>
-                    <li><a href="#geografia" class="text-sm font-medium text-slate-500 hover:text-slate-900 transition-colors">Geografia</a></li>
-                    <li><a href="#historia" class="text-sm font-medium text-slate-500 hover:text-slate-900 transition-colors">História</a></li>
-                    <li><a href="#matematica" class="text-sm font-medium text-slate-500 hover:text-slate-900 transition-colors">Matemática</a></li>
-                    <li><a href="#portugues" class="text-sm font-medium text-slate-500 hover:text-slate-900 transition-colors">Português</a></li>
-                    <li><a href="#projeto-vida" class="text-sm font-medium text-slate-500 hover:text-slate-900 transition-colors">Projeto de Vida</a></li>
+                <ul id="menu-navegacao" class="flex md:flex-wrap justify-start gap-5 md:gap-7 w-max md:w-auto pb-2 md:pb-0">
+                    <!-- Menu gerado via JavaScript -->
                 </ul>
             </nav>
         </div>
     </header>
 
     <main id="conteudo-principal" class="max-w-3xl mx-auto px-6 pt-48 pb-24">
-        
-        <section id="biologia" class="mb-14 scroll-mt-40">
-            <div class="bg-white rounded-2xl p-8 shadow-sm border border-slate-100 hover:shadow-md transition-shadow">
-                <h2 class="text-2xl font-bold text-slate-900 mb-4">Biologia</h2>
-                <p class="text-lg leading-relaxed text-slate-600">O trabalho de biologia foi um trabalho proposto pela professora que pediu para fazer uma pesquisa sobre o sistema locomotor.</p>
-            </div>
-        </section>
-
-        <section id="educacao-fisica" class="mb-14 scroll-mt-40">
-            <div class="bg-white rounded-2xl p-8 shadow-sm border border-slate-100 hover:shadow-md transition-shadow">
-                <h2 class="text-2xl font-bold text-slate-900 mb-4">Educação Física</h2>
-                <p class="text-lg leading-relaxed text-slate-600">O trabalho de educação física foi uma proposta do professor para a turma fazer um trabalho sobre lazer. Nós fizemos algumas atividades na sala e algumas na quadra.</p>
-            </div>
-        </section>
-
-        <section id="filosofia" class="mb-14 scroll-mt-40">
-            <div class="bg-white rounded-2xl p-8 shadow-sm border border-slate-100 hover:shadow-md transition-shadow">
-                <h2 class="text-2xl font-bold text-slate-900 mb-4">Filosofia</h2>
-                <p class="text-lg leading-relaxed text-slate-600">O trabalho de filosofia foi uma proposta da professora que pediu pra turma se dividir em grupos e era para a gente falar sobre os filósofos iluministas.</p>
-            </div>
-        </section>
-
-        <section id="fisica" class="mb-14 scroll-mt-40">
-            <div class="bg-white rounded-2xl p-8 shadow-sm border border-slate-100 hover:shadow-md transition-shadow">
-                <h2 class="text-2xl font-bold text-slate-900 mb-4">Física</h2>
-                <p class="text-lg leading-relaxed text-slate-600">O trabalho de física foi uma proposta do professor e ele pediu para a turma se dividir em grupos. Um grupo era a construção, o segundo era o manual em texto e o terceiro era a gravação de um vídeo mostrando a construção. Esse trabalho foi construir um aquecedor solar.</p>
-            </div>
-        </section>
-
-        <section id="geografia" class="mb-14 scroll-mt-40">
-            <div class="bg-white rounded-2xl p-8 shadow-sm border border-slate-100 hover:shadow-md transition-shadow">
-                <h2 class="text-2xl font-bold text-slate-900 mb-4">Geografia</h2>
-                <p class="text-lg leading-relaxed text-slate-600">O trabalho de geografia foi um trabalho que a professora pediu pra fazer sobre as migrações. Ela separou a sala em grupos e sorteou algumas migrações.</p>
-            </div>
-        </section>
-
-        <section id="historia" class="mb-14 scroll-mt-40">
-            <div class="bg-white rounded-2xl p-8 shadow-sm border border-slate-100 hover:shadow-md transition-shadow">
-                <h2 class="text-2xl font-bold text-slate-900 mb-4">História</h2>
-                <p class="text-lg leading-relaxed text-slate-600">A atividade sobre a escravidão foi uma proposta da professora que pediu para a gente fazer uma produção escrita sobre a abolição no Brasil.</p>
-            </div>
-        </section>
-
-        <section id="matematica" class="mb-14 scroll-mt-40">
-            <div class="bg-white rounded-2xl p-8 shadow-sm border border-slate-100 hover:shadow-md transition-shadow">
-                <h2 class="text-2xl font-bold text-slate-900 mb-4">Matemática</h2>
-                <p class="text-lg leading-relaxed text-slate-600">Essa atividade foi proposta pelo professor de matemática que pediu para fazer uma pesquisa sobre logaritmo e suas propriedades.</p>
-            </div>
-        </section>
-
-        <section id="portugues" class="mb-14 scroll-mt-40">
-            <div class="bg-white rounded-2xl p-8 shadow-sm border border-slate-100 hover:shadow-md transition-shadow">
-                <h2 class="text-2xl font-bold text-slate-900 mb-4">Português</h2>
-                <p class="text-lg leading-relaxed text-slate-600 italic">"Essa atividade foi pedida pela professora de português e a proposta foi pesquisar uma letra de uma música que falava sobre racismo, pobreza e coisas relacionadas. A música que eu coloquei foi 'They Don’t Care About Us' do Michael Jackson."</p>
-            </div>
-        </section>
-
-        <section id="projeto-vida" class="mb-14 scroll-mt-40">
-            <div class="bg-white rounded-2xl p-8 shadow-sm border border-slate-100 hover:shadow-md transition-shadow">
-                <h2 class="text-2xl font-bold text-slate-900 mb-8">Projeto de Vida</h2>
-                
-                <div class="space-y-6">
-                    <article class="p-6 bg-[#faf9f6] rounded-xl border border-slate-100/50">
-                        <h3 class="text-lg font-bold text-slate-800 mb-2">Atividade 1</h3>
-                        <p class="text-slate-600 leading-relaxed">O trabalho de projeto de vida foi uma proposta da professora que pediu para a turma se dividir em grupos de 3 pessoas e ela sorteou os temas. O trabalho era sobre estatutos.</p>
-                    </article>
-
-                    <article class="p-6 bg-[#faf9f6] rounded-xl border border-slate-100/50">
-                        <h3 class="text-lg font-bold text-slate-800 mb-2">Atividade 2</h3>
-                        <p class="text-slate-600 leading-relaxed">O trabalho dos estereótipos foi uma proposta da professora de projeto de vida que pediu para a turma fazer duplas e pesquisar coisas que tinham estereótipos.</p>
-                    </article>
-                </div>
-            </div>
-        </section>
-
+        <!-- Conteúdo gerado via JavaScript -->
     </main>
 
     <footer class="text-slate-400 py-12 text-center text-sm">
-        <p>Portfólio Escolar - Conteúdo Extraído de Documentos</p>
+        <p>Portfólio Escolar - Conteúdo Dinâmico</p>
     </footer>
 
+    <script>
+        // LISTA DE DISCIPLINAS (O Marcelo edita apenas aqui)
+        const disciplinas = [
+            {
+                id: "biologia",
+                nome: "Biologia",
+                texto: "O trabalho de biologia foi um trabalho proposto pela professora que pediu para fazer uma pesquisa sobre o sistema locomotor."
+            },
+            {
+                id: "educacao-fisica",
+                nome: "Educação Física",
+                texto: "O trabalho de educação física foi uma proposta do professor para a turma fazer um trabalho sobre lazer. Nós fizemos algumas atividades na sala e algumas na quadra."
+            },
+            {
+                id: "filosofia",
+                nome: "Filosofia",
+                texto: "O trabalho de filosofia foi uma proposta da professora que pediu pra turma se dividir em grupos e era para a gente falar sobre os filósofos iluministas."
+            },
+            {
+                id: "fisica",
+                nome: "Física",
+                texto: "Este trabalho consistiu na construção de um aquecedor solar, dividido em etapas de construção, manual técnico e registro em vídeo."
+            },
+            {
+                id: "projeto-vida",
+                nome: "Projeto de Vida",
+                atividades: [
+                    { titulo: "Atividade 1", desc: "Trabalho em grupo sobre estatutos sociais." },
+                    { titulo: "Atividade 2", desc: "Pesquisa em dupla sobre estereótipos na sociedade atual." }
+                ]
+            }
+        ];
+
+        const menuContainer = document.getElementById('menu-navegacao');
+        const mainContainer = document.getElementById('conteudo-principal');
+
+        function renderizarSite() {
+            menuContainer.innerHTML = '';
+            mainContainer.innerHTML = '';
+
+            disciplinas.forEach(disciplina => {
+                // 1. Criar item do Menu
+                const li = document.createElement('li');
+                li.innerHTML = `<a href="#${disciplina.id}" class="text-sm font-medium text-slate-500 hover:text-slate-900 transition-colors">${disciplina.nome}</a>`;
+                menuContainer.appendChild(li);
+
+                // 2. Criar Seção de Conteúdo
+                const section = document.createElement('section');
+                section.id = disciplina.id;
+                section.className = "mb-14 scroll-mt-40";
+
+                let conteudoInterno = '';
+
+                if (disciplina.atividades) {
+                    // Se a disciplina tiver múltiplas atividades (como Projeto de Vida)
+                    const cardsAtividades = disciplina.atividades.map(atv => `
+                        <article class="p-6 bg-[#faf9f6] rounded-xl border border-slate-100/50">
+                            <h3 class="text-lg font-bold text-slate-800 mb-2">${atv.titulo}</h3>
+                            <p class="text-slate-600 leading-relaxed">${atv.desc}</p>
+                        </article>
+                    `).join('');
+
+                    conteudoInterno = `
+                        <div class="bg-white rounded-2xl p-8 shadow-sm border border-slate-100 hover:shadow-md transition-shadow">
+                            <h2 class="text-2xl font-bold text-slate-900 mb-8">${disciplina.nome}</h2>
+                            <div class="space-y-6">${cardsAtividades}</div>
+                        </div>
+                    `;
+                } else {
+                    // Se for uma disciplina simples
+                    conteudoInterno = `
+                        <div class="bg-white rounded-2xl p-8 shadow-sm border border-slate-100 hover:shadow-md transition-shadow">
+                            <h2 class="text-2xl font-bold text-slate-900 mb-4">${disciplina.nome}</h2>
+                            <p class="text-lg leading-relaxed text-slate-600">${disciplina.texto}</p>
+                        </div>
+                    `;
+                }
+
+                section.innerHTML = conteudoInterno;
+                mainContainer.appendChild(section);
+            });
+        }
+
+        renderizarSite();
+    </script>
 </body>
 </html>
