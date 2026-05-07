@@ -10,7 +10,6 @@
         html { scroll-behavior: smooth; }
         body { font-family: 'Inter', sans-serif; background-color: #faf9f6; }
         h1, h2, h3 { font-family: 'Merriweather', serif; }
-        .admin-ativo { display: block !important; }
     </style>
 </head>
 <body class="text-slate-800 antialiased pb-24">
@@ -19,8 +18,8 @@
         <div class="max-w-4xl mx-auto px-6 py-5">
             <div class="flex justify-between items-center mb-5">
                 <h1 class="text-2xl font-bold text-slate-900">Portfólio do Marcelo</h1>
-                <button id="btn-add-materia" onclick="abrirModal()" class="hidden bg-blue-600 text-white px-4 py-2 rounded-lg text-sm font-bold hover:bg-blue-700 shadow-lg transition-all">
-                    + Adicionar Matéria
+                <button onclick="abrirFluxoEdicao()" class="bg-blue-600 text-white px-5 py-2 rounded-full text-sm font-bold hover:bg-blue-700 shadow-md transition-all">
+                    Adicionar novo conteúdo
                 </button>
             </div>
             <nav class="overflow-x-auto no-scrollbar">
@@ -30,166 +29,157 @@
     </header>
 
     <main id="conteudo-principal" class="max-w-3xl mx-auto px-6 pt-48">
-        <div id="loading" class="text-center text-slate-400 italic">Carregando conteúdos...</div>
+        <div id="loading" class="text-center text-slate-400 italic">Carregando portfólio...</div>
     </main>
 
-    <div id="barra-login" class="fixed bottom-0 left-0 w-full bg-slate-900 text-white p-4 z-[100] transition-transform translate-y-full">
-        <div class="max-w-xl mx-auto flex flex-col gap-3">
-            <p class="text-xs text-slate-400">Olá Marcelo, cole seu Token do GitHub para liberar a edição:</p>
-            <div class="flex gap-2">
-                <input type="password" id="input-token" placeholder="Cole o token aqui..." class="flex-1 bg-slate-800 border-none p-2 rounded text-sm text-white outline-none focus:ring-2 ring-blue-500">
-                <button onclick="salvarToken()" class="bg-blue-600 px-4 py-2 rounded text-sm font-bold">Entrar</button>
-                <button onclick="exibirLogin(false)" class="text-slate-500 text-xs px-2">Fechar</button>
+    <div id="modal" class="fixed inset-0 bg-black/70 hidden items-center justify-center z-[110] p-4 backdrop-blur-sm">
+        <div class="bg-white p-8 rounded-3xl max-w-md w-full shadow-2xl relative">
+            <button onclick="fecharModal()" class="absolute top-4 right-4 text-slate-400 hover:text-slate-600 text-2xl">&times;</button>
+            
+            <div id="etapa-token" class="hidden">
+                <h2 class="text-xl font-bold mb-2">Acesso Restrito</h2>
+                <p class="text-sm text-slate-500 mb-6">Olá Marcelo, cole seu Token do GitHub para liberar a edição deste site.</p>
+                <input type="password" id="input-token" placeholder="Cole seu token aqui..." class="w-full border border-slate-200 p-4 rounded-2xl mb-4 outline-none focus:ring-2 ring-blue-100">
+                <button onclick="salvarToken()" class="w-full bg-slate-900 text-white py-4 rounded-2xl font-bold hover:bg-slate-800 transition-all">Validar e Continuar</button>
             </div>
-        </div>
-    </div>
 
-    <button id="btn-lock" onclick="exibirLogin(true)" class="fixed bottom-6 right-6 w-12 h-12 bg-white shadow-xl border border-slate-200 rounded-full flex items-center justify-center text-xl hover:scale-110 transition-all z-50">🔑</button>
-
-    <div id="modal-cadastro" class="fixed inset-0 bg-black/70 hidden items-center justify-center z-[110] p-4 backdrop-blur-sm">
-        <div class="bg-white p-8 rounded-3xl max-w-md w-full shadow-2xl">
-            <h2 class="text-xl font-bold mb-6">Cadastrar Nova Matéria</h2>
-            
-            <label class="block text-xs font-bold text-slate-400 mb-1 uppercase">Nome da Disciplina</label>
-            <input type="text" id="form-nome" placeholder="Ex: Matemática" class="w-full border border-slate-200 p-3 rounded-xl mb-4 outline-none focus:border-blue-500">
-            
-            <label class="block text-xs font-bold text-slate-400 mb-1 uppercase">Descrição do Trabalho</label>
-            <textarea id="form-texto" placeholder="O que você estudou nesta matéria?" class="w-full border border-slate-200 p-3 rounded-xl mb-6 h-40 outline-none focus:border-blue-500"></textarea>
-            
-            <div class="flex gap-3">
-                <button onclick="registrarMateria()" id="btn-finalizar" class="bg-blue-600 text-white flex-1 py-3 rounded-xl font-bold hover:bg-blue-700">Salvar Matéria</button>
-                <button onclick="fecharModal()" class="bg-slate-100 text-slate-500 flex-1 py-3 rounded-xl">Cancelar</button>
+            <div id="etapa-materia" class="hidden">
+                <h2 class="text-xl font-bold mb-6">Nova Matéria</h2>
+                <div class="space-y-4">
+                    <div>
+                        <label class="text-[10px] font-bold uppercase text-slate-400 ml-1">Título da Disciplina</label>
+                        <input type="text" id="form-nome" placeholder="Ex: Biologia" class="w-full border border-slate-200 p-4 rounded-2xl outline-none focus:ring-2 ring-blue-100">
+                    </div>
+                    <div>
+                        <label class="text-[10px] font-bold uppercase text-slate-400 ml-1">Conteúdo/Texto</label>
+                        <textarea id="form-texto" placeholder="Descreva o que foi feito..." class="w-full border border-slate-200 p-4 rounded-2xl h-40 outline-none focus:ring-2 ring-blue-100"></textarea>
+                    </div>
+                    <button id="btn-salvar-final" onclick="executarCadastro()" class="w-full bg-blue-600 text-white py-4 rounded-2xl font-bold hover:bg-blue-700 transition-all">Publicar no Site</button>
+                    <button onclick="limparToken()" class="w-full text-red-400 text-xs mt-2 hover:underline">Sair / Trocar Token</button>
+                </div>
             </div>
         </div>
     </div>
 
     <script>
-        // CONFIGURAÇÕES DO GITHUB
-        const GITHUB = {
-            usuario: 'marcossc-beep', 
-            repo: 'portifolio_marcelo',
-            arquivo: 'materias.json'
-        };
+        const REPO_OWNER = 'marcossc-beep'; 
+        const REPO_NAME = 'portifolio_marcelo';
+        const FILE_PATH = 'materias.json';
 
-        let dadosAtuais = [];
-        let shaArquivo = '';
+        let listaMaterias = [];
+        let shaAtual = '';
 
-        async function init() {
-            verificarStatusAdmin();
-            await buscarDados();
-        }
-
-        // Função para os acentos funcionarem no GitHub (UTF-8)
-        function paraBase64(str) {
-            return btoa(encodeURIComponent(str).replace(/%([0-9A-F]{2})/g, (match, p1) => {
-                return String.fromCharCode('0x' + p1);
-            }));
-        }
-
-        function verificarStatusAdmin() {
-            const token = localStorage.getItem('token_marcelo');
-            if (token) {
-                document.getElementById('btn-add-materia').classList.add('admin-ativo');
-                document.getElementById('btn-lock').style.display = 'none';
-            }
-        }
-
-        function salvarToken() {
-            const token = document.getElementById('input-token').value;
-            if (token) {
-                localStorage.setItem('token_marcelo', token);
-                location.reload();
-            }
-        }
-
-        function exibirLogin(show) {
-            document.getElementById('barra-login').style.transform = show ? 'translateY(0)' : 'translateY(100%)';
-        }
-
-        async function buscarDados() {
+        // Inicia carregando os dados do GitHub
+        async function carregar() {
             try {
-                const url = `https://api.github.com/repos/${GITHUB.usuario}/${GITHUB.repo}/contents/${GITHUB.arquivo}`;
-                const resposta = await fetch(url);
-                const data = await resposta.json();
-                
-                shaArquivo = data.sha;
-                // Decodifica tratando acentos
-                dadosAtuais = JSON.parse(decodeURIComponent(escape(atob(data.content))));
-                desenharInterface(dadosAtuais);
+                const url = `https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents/${FILE_PATH}`;
+                const res = await fetch(url);
+                const data = await res.json();
+                shaAtual = data.sha;
+                // Decodifica JSON tratando acentos corretamente
+                listaMaterias = JSON.parse(decodeURIComponent(escape(atob(data.content))));
+                renderizarSite();
             } catch (e) {
                 document.getElementById('loading').innerText = "Erro ao carregar matérias.";
             }
         }
 
-        function desenharInterface(lista) {
+        function renderizarSite() {
             const menu = document.getElementById('menu-navegacao');
             const main = document.getElementById('conteudo-principal');
-            const isAdmin = localStorage.getItem('token_marcelo');
+            const temToken = localStorage.getItem('marcelo_token');
             
             menu.innerHTML = ''; main.innerHTML = '';
 
-            lista.forEach((item, i) => {
-                menu.innerHTML += `<li><a href="#${item.id}" class="text-sm font-medium text-slate-500 hover:text-slate-900">${item.nome}</a></li>`;
+            listaMaterias.forEach((m, index) => {
+                menu.innerHTML += `<li><a href="#materia-${index}" class="text-sm font-medium text-slate-500 hover:text-slate-900">${m.nome}</a></li>`;
                 
                 main.innerHTML += `
-                    <section id="${item.id}" class="mb-14 bg-white rounded-2xl p-8 border border-slate-100 relative group shadow-sm">
-                        ${isAdmin ? `<button onclick="removerMateria(${i})" class="absolute top-4 right-4 text-red-300 hover:text-red-600 font-bold text-xs">Excluir 🗑️</button>` : ''}
-                        <h2 class="text-2xl font-bold text-slate-900 mb-4">${item.nome}</h2>
-                        <p class="text-lg leading-relaxed text-slate-600">${item.texto}</p>
+                    <section id="materia-${index}" class="mb-14 bg-white rounded-3xl p-8 border border-slate-100 relative group shadow-sm hover:shadow-md transition-all">
+                        ${temToken ? `<button onclick="deletarMateria(${index})" class="absolute top-6 right-6 text-red-300 hover:text-red-600 font-bold text-xs uppercase tracking-widest bg-red-50 px-3 py-1 rounded-full transition-colors">Deletar 🗑️</button>` : ''}
+                        <h2 class="text-2xl font-bold text-slate-900 mb-4">${m.nome}</h2>
+                        <p class="text-lg leading-relaxed text-slate-600">${m.texto}</p>
                     </section>
                 `;
             });
+            document.getElementById('loading').style.display = 'none';
         }
 
-        async function enviarParaGitHub(conteudo) {
-            const token = localStorage.getItem('token_marcelo');
-            const btn = document.getElementById('btn-finalizar');
-            btn.innerText = "Salvando...";
-            btn.disabled = true;
+        function abrirFluxoEdicao() {
+            const modal = document.getElementById('modal');
+            const token = localStorage.getItem('marcelo_token');
+            modal.style.display = 'flex';
 
-            const url = `https://api.github.com/repos/${GITHUB.usuario}/${GITHUB.repo}/contents/${GITHUB.arquivo}`;
-            const body = {
-                message: "Atualização de matéria",
-                content: paraBase64(JSON.stringify(conteudo, null, 2)),
-                sha: shaArquivo
-            };
+            if (!token) {
+                document.getElementById('etapa-token').classList.remove('hidden');
+                document.getElementById('etapa-materia').classList.add('hidden');
+            } else {
+                document.getElementById('etapa-token').classList.add('hidden');
+                document.getElementById('etapa-materia').classList.remove('hidden');
+            }
+        }
+
+        function salvarToken() {
+            const token = document.getElementById('input-token').value.trim();
+            if (token) {
+                localStorage.setItem('marcelo_token', token);
+                abrirFluxoEdicao(); // Pula para a etapa de cadastro
+                renderizarSite(); // Mostra os botões de deletar
+            }
+        }
+
+        function limparToken() {
+            localStorage.removeItem('marcelo_token');
+            location.reload();
+        }
+
+        async function enviarParaGithub(novaLista) {
+            const token = localStorage.getItem('marcelo_token');
+            const btn = document.getElementById('btn-salvar-final');
+            if(btn) { btn.innerText = "Salvando..."; btn.disabled = true; }
+
+            const url = `https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents/${FILE_PATH}`;
+            
+            // Função para converter string para Base64 respeitando UTF-8 (Acentos)
+            const contentBase64 = btoa(unescape(encodeURIComponent(JSON.stringify(novaLista, null, 2))));
 
             const res = await fetch(url, {
                 method: 'PUT',
-                headers: { 'Authorization': `token ${token}` },
-                body: JSON.stringify(body)
+                headers: { 'Authorization': `token ${token}`, 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    message: "Atualização via site",
+                    content: contentBase64,
+                    sha: shaAtual
+                })
             });
 
-            if(res.ok) {
+            if (res.ok) {
                 location.reload();
             } else {
-                alert("Erro ao salvar! O seu Token pode ter expirado.");
-                localStorage.removeItem('token_marcelo');
-                location.reload();
+                alert("Erro ao salvar! Verifique se seu token é válido.");
+                limparToken();
             }
         }
 
         function registrarMateria() {
-            const n = document.getElementById('form-nome').value;
-            const t = document.getElementById('form-texto').value;
-            if(!n || !t) return alert("Preencha todos os campos!");
+            const nome = document.getElementById('form-nome').value;
+            const texto = document.getElementById('form-texto').value;
+            if(!nome || !texto) return alert("Preencha o título e o conteúdo!");
 
-            const nova = { id: 'id-' + Date.now(), nome: n, texto: t };
-            dadosAtuais.push(nova);
-            enviarParaGitHub(dadosAtuais);
+            listaMaterias.push({ nome: nome, texto: texto });
+            enviarParaGithub(listaMaterias);
         }
 
-        function removerMateria(index) {
-            if(confirm("Deseja apagar esta disciplina?")) {
-                dadosAtuais.splice(index, 1);
-                enviarParaGitHub(dadosAtuais);
+        function deletarMateria(index) {
+            if (confirm(`Tem certeza que deseja apagar a matéria "${listaMaterias[index].nome}"?`)) {
+                listaMaterias.splice(index, 1);
+                enviarParaGithub(listaMaterias);
             }
         }
 
-        function abrirModal() { document.getElementById('modal-cadastro').style.display = 'flex'; }
-        function fecharModal() { document.getElementById('modal-cadastro').style.display = 'none'; }
-
-        init();
+        function fecharModal() { document.getElementById('modal').style.display = 'none'; }
+        
+        carregar();
     </script>
 </body>
 </html>
