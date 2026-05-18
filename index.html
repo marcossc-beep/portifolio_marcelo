@@ -3,134 +3,120 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portfólio do Marcelo</title>
+    <title>Portfólio Acadêmico | Marcelo</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Merriweather:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Merriweather:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
     <style>
         html { scroll-behavior: smooth; }
-        body { font-family: 'Inter', sans-serif; background-color: #faf9f6; }
+        body { font-family: 'Inter', sans-serif; background-color: #fcfbf9; }
         h1, h2, h3 { font-family: 'Merriweather', serif; }
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
     </style>
 </head>
-<body class="text-slate-800 antialiased pb-24">
+<body class="text-slate-800 antialiased pb-32">
 
-    <header class="fixed top-0 w-full bg-white/90 backdrop-blur-sm border-b border-slate-200 z-50">
-        <div class="max-w-4xl mx-auto px-6 py-5">
-            <div class="flex justify-between items-center mb-5">
-                <h1 class="text-2xl font-bold text-slate-900">Portfólio do Marcelo</h1>
-                <button onclick="abrirModal()" class="bg-blue-600 text-white px-5 py-2 rounded-full text-sm font-bold hover:bg-blue-700 shadow-md transition-all">
-                    Adicionar novo conteúdo
-                </button>
-            </div>
-            <nav class="overflow-x-auto no-scrollbar">
-                <ul id="menu-navegacao" class="flex md:flex-wrap justify-start gap-5 md:gap-7 w-max md:w-auto pb-2"></ul>
+    <header class="fixed top-0 w-full bg-white/80 backdrop-blur-md border-b border-slate-100 z-50">
+        <div class="max-w-4xl mx-auto px-6 py-4 flex flex-col md:flex-row justify-between items-center gap-4">
+            <a href="#" class="text-xl font-bold text-slate-900 tracking-tight">Portfólio do Marcelo</a>
+            <nav class="overflow-x-auto no-scrollbar w-full md:w-auto">
+                <ul class="flex gap-5 text-sm font-medium text-slate-500 whitespace-nowrap pb-1 md:pb-0">
+                    <li><a href="#biologia" class="hover:text-blue-600 transition-colors">Biologia</a></li>
+                    <li><a href="#educacao-fisica" class="hover:text-blue-600 transition-colors">Ed. Física</a></li>
+                    <li><a href="#filosofia" class="hover:text-blue-600 transition-colors">Filosofia</a></li>
+                    <li><a href="#fisica" class="hover:text-blue-600 transition-colors">Física</a></li>
+                    <li><a href="#geografia" class="hover:text-blue-600 transition-colors">Geografia</a></li>
+                    <li><a href="#historia" class="hover:text-blue-600 transition-colors">História</a></li>
+                    <li><a href="#matematica" class="hover:text-blue-600 transition-colors">Matemática</a></li>
+                    <li><a href="#portugues" class="hover:text-blue-600 transition-colors">Português</a></li>
+                    <li><a href="#projeto-vida" class="hover:text-blue-600 transition-colors">Projeto de Vida</a></li>
+                </ul>
             </nav>
         </div>
     </header>
 
-    <main id="conteudo-principal" class="max-w-3xl mx-auto px-6 pt-48">
-        <div id="loading-box" class="text-center text-slate-400 italic">Carregando portfólio...</div>
-    </main>
+    <section class="max-w-3xl mx-auto px-6 pt-40 pb-16 text-center md:text-left">
+        <span class="text-xs font-bold uppercase tracking-widest text-blue-600 bg-blue-50 px-3 py-1 rounded-full">Trabalhos & Atividades</span>
+        <h1 class="text-4xl md:text-5xl font-bold text-slate-900 mt-4 mb-4 leading-tight">Registro de Trajetória Escolar</h1>
+        <p class="text-lg text-slate-500 font-light max-w-xl leading-relaxed">Uma compilação das produções, pesquisas e projetos desenvolvidos ao longo do ano letivo.</p>
+    </section>
 
-    <div id="modal" class="fixed inset-0 bg-black/70 hidden items-center justify-center z-[110] p-4 backdrop-blur-sm">
-        <div class="bg-white p-8 rounded-3xl max-w-md w-full shadow-2xl relative">
-            <button onclick="fecharModal()" class="absolute top-4 right-4 text-slate-400 hover:text-slate-600 text-2xl">&times;</button>
+    <main class="max-w-3xl mx-auto px-6 space-y-12">
+
+        <section id="biologia" class="scroll-mt-28 bg-white rounded-3xl p-8 md:p-10 border border-slate-200/60 shadow-sm hover:shadow-md transition-all">
+            <span class="text-[10px] font-bold uppercase tracking-wider text-emerald-600 bg-emerald-50 px-2.5 py-1 rounded-md">Ciências da Natureza</span>
+            <h2 class="text-2xl font-bold text-slate-900 mt-3 mb-4">Biologia</h2>
+            <p class="text-lg leading-relaxed text-slate-600 italic">"O trabalho de biologia foi um trabalho proposto pela professora que pediu para fazer uma pesquisa sobre o sistema locomotor."</p>
+        </section>
+
+        <section id="educacao-fisica" class="scroll-mt-28 bg-white rounded-3xl p-8 md:p-10 border border-slate-200/60 shadow-sm hover:shadow-md transition-all">
+            <span class="text-[10px] font-bold uppercase tracking-wider text-amber-600 bg-amber-50 px-2.5 py-1 rounded-md">Linguagens</span>
+            <h2 class="text-2xl font-bold text-slate-900 mt-3 mb-4">Educação Física</h2>
+            <p class="text-lg leading-relaxed text-slate-600 italic">"O trabalho de educação física foi uma proposta do professor para a turma fazer um trabalho sobre lazer. Nós fizemos algumas atividades na sala e algumas na quadra."</p>
+        </section>
+
+        <section id="filosofia" class="scroll-mt-28 bg-white rounded-3xl p-8 md:p-10 border border-slate-200/60 shadow-sm hover:shadow-md transition-all">
+            <span class="text-[10px] font-bold uppercase tracking-wider text-purple-600 bg-purple-50 px-2.5 py-1 rounded-md">Ciências Humanas</span>
+            <h2 class="text-2xl font-bold text-slate-900 mt-3 mb-4">Filosofia</h2>
+            <p class="text-lg leading-relaxed text-slate-600 italic">"O trabalho de filosofia foi uma proposta da professora que pediu pra turma se dividir em grupos e era para a gente falar sobre os filósofos iluministas."</p>
+        </section>
+
+        <section id="fisica" class="scroll-mt-28 bg-white rounded-3xl p-8 md:p-10 border border-slate-200/60 shadow-sm hover:shadow-md transition-all">
+            <span class="text-[10px] font-bold uppercase tracking-wider text-emerald-600 bg-emerald-50 px-2.5 py-1 rounded-md">Ciências da Natureza</span>
+            <h2 class="text-2xl font-bold text-slate-900 mt-3 mb-4">Física</h2>
+            <p class="text-lg leading-relaxed text-slate-600 italic">"O trabalho de física foi uma proposta do professor e ele pediu para a turma se dividir em grupos. Um grupo era a construção, o segundo era o manual em texto e o terceiro era a gravação de um vídeo mostrando a construção. Esse trabalho foi construir um aquecedor solar."</p>
+        </section>
+
+        <section id="geografia" class="scroll-mt-28 bg-white rounded-3xl p-8 md:p-10 border border-slate-200/60 shadow-sm hover:shadow-md transition-all">
+            <span class="text-[10px] font-bold uppercase tracking-wider text-purple-600 bg-purple-50 px-2.5 py-1 rounded-md">Ciências Humanas</span>
+            <h2 class="text-2xl font-bold text-slate-900 mt-3 mb-4">Geografia</h2>
+            <p class="text-lg leading-relaxed text-slate-600 italic">"O trabalho de geografia foi um trabalho que a professora pediu pra fazer sobre as migrações. Ela separou a sala em grupos e sorteou algumas migrações."</p>
+        </section>
+
+        <section id="historia" class="scroll-mt-28 bg-white rounded-3xl p-8 md:p-10 border border-slate-200/60 shadow-sm hover:shadow-md transition-all">
+            <span class="text-[10px] font-bold uppercase tracking-wider text-purple-600 bg-purple-50 px-2.5 py-1 rounded-md">Ciências Humanas</span>
+            <h2 class="text-2xl font-bold text-slate-900 mt-3 mb-4">História</h2>
+            <p class="text-lg leading-relaxed text-slate-600 italic">"A atividade sobre a escravidão foi uma proposta da professora que pediu para a gente fazer uma produção escrita sobre a abolição no Brasil."</p>
+        </section>
+
+        <section id="matematica" class="scroll-mt-28 bg-white rounded-3xl p-8 md:p-10 border border-slate-200/60 shadow-sm hover:shadow-md transition-all">
+            <span class="text-[10px] font-bold uppercase tracking-wider text-blue-600 bg-blue-50 px-2.5 py-1 rounded-md">Exatas</span>
+            <h2 class="text-2xl font-bold text-slate-900 mt-3 mb-4">Matemática</h2>
+            <p class="text-lg leading-relaxed text-slate-600 italic">"Essa atividade foi proposta pelo professor de matemática que pediu para fazer uma pesquisa sobre logaritmo e suas propriedades."</p>
+        </section>
+
+        <section id="portugues" class="scroll-mt-28 bg-white rounded-3xl p-8 md:p-10 border border-slate-200/60 shadow-sm hover:shadow-md transition-all">
+            <span class="text-[10px] font-bold uppercase tracking-wider text-amber-600 bg-amber-50 px-2.5 py-1 rounded-md">Linguagens</span>
+            <h2 class="text-2xl font-bold text-slate-900 mt-3 mb-4">Português</h2>
+            <p class="text-lg leading-relaxed text-slate-600 italic">"Essa atividade foi pedida pela professora de português e a proposta foi pesquisar uma letra de uma música que falava sobre racismo, pobreza e coisas relacionadas. A música que eu coloquei foi 'They Don’t Care About Us' do Michael Jackson."</p>
+        </section>
+
+        <section id="projeto-vida" class="scroll-mt-28 bg-white rounded-3xl p-8 md:p-10 border border-slate-200/60 shadow-sm hover:shadow-md transition-all">
+            <span class="text-[10px] font-bold uppercase tracking-wider text-rose-600 bg-rose-50 px-2.5 py-1 rounded-md">Formação Geral</span>
+            <h2 class="text-2xl font-bold text-slate-900 mt-3 mb-6">Projeto de Vida</h2>
             
-            <div>
-                <h2 class="text-xl font-bold mb-6">Nova Matéria</h2>
-                <div class="space-y-4">
+            <div class="grid md:grid-cols-2 gap-6">
+                <div class="bg-slate-50/80 rounded-2xl p-6 border border-slate-100 flex flex-col justify-between">
                     <div>
-                        <label class="text-[10px] font-bold uppercase text-slate-400 ml-1">Título da Disciplina</label>
-                        <input type="text" id="form-nome" placeholder="Ex: Biologia" class="w-full border border-slate-200 p-4 rounded-2xl outline-none focus:ring-2 ring-blue-100">
+                        <h3 class="text-xs font-bold uppercase tracking-widest text-slate-400 mb-2">Atividade 1</h3>
+                        <p class="text-base text-slate-600 leading-relaxed">O trabalho de projeto de vida foi uma proposta da professora que pediu para a turma se dividir em grupos de 3 pessoas e ela sorteou os temas. O trabalho era sobre estatutos.</p>
                     </div>
+                </div>
+                
+                <div class="bg-slate-50/80 rounded-2xl p-6 border border-slate-100 flex flex-col justify-between">
                     <div>
-                        <label class="text-[10px] font-bold uppercase text-slate-400 ml-1">Conteúdo/Texto</label>
-                        <textarea id="form-texto" placeholder="Descreva o que foi feito..." class="w-full border border-slate-200 p-4 rounded-2xl h-40 outline-none focus:ring-2 ring-blue-100"></textarea>
+                        <h3 class="text-xs font-bold uppercase tracking-widest text-slate-400 mb-2">Atividade 2</h3>
+                        <p class="text-base text-slate-600 leading-relaxed">O trabalho dos estereótipos foi uma proposta da professora de projeto de vida que pediu para a turma fazer duplas e pesquisar coisas que tinham estereótipos.</p>
                     </div>
-                    <button onclick="executarCadastro()" class="w-full bg-blue-600 text-white py-4 rounded-2xl font-bold hover:bg-blue-700 transition-all">Publicar no Site</button>
                 </div>
             </div>
-        </div>
-    </div>
+        </section>
 
-    <script>
-        // Dados padrão caso o navegador ainda não tenha nada salvo
-        const materiasPadrao = [
-            { nome: "História", texto: "Análise sobre as grandes navegações e o impacto do comércio transatlântico no século XVI." },
-            { nome: "Matemática", texto: "Estudo prático de funções afins e quadráticas aplicadas à análise de gráficos financeiros." }
-        ];
+    </main>
 
-        // Carrega do LocalStorage ou usa os dados padrão
-        let listaMaterias = JSON.parse(localStorage.getItem('marcelo_materias')) || materiasPadrao;
+    <footer class="max-w-3xl mx-auto px-6 text-center text-xs text-slate-400 mt-20">
+        <p>© 2026 Portfólio Escolar Marcelo. Desenvolvido com carinho e simplicidade.</p>
+    </footer>
 
-        function carregar() {
-            renderizarSite();
-        }
-
-        function salvarDados() {
-            localStorage.setItem('marcelo_materias', JSON.stringify(listaMaterias));
-        }
-
-        function renderizarSite() {
-            const menu = document.getElementById('menu-navegacao');
-            const main = document.getElementById('conteudo-principal');
-            const loadingBox = document.getElementById('loading-box');
-            
-            if(menu) menu.innerHTML = ''; 
-            if(main) main.innerHTML = '';
-
-            if (listaMaterias.length === 0) {
-                if(main) main.innerHTML = `<div class="text-center text-slate-400 italic py-12">Nenhum conteúdo cadastrado ainda.</div>`;
-            } else {
-                listaMaterias.forEach((m, index) => {
-                    if(menu) menu.innerHTML += `<li><a href="#materia-${index}" class="text-sm font-medium text-slate-500 hover:text-slate-900">${m.nome}</a></li>`;
-                    
-                    if(main) main.innerHTML += `
-                        <section id="materia-${index}" class="mb-14 bg-white rounded-3xl p-8 border border-slate-100 relative group shadow-sm hover:shadow-md transition-all">
-                            <button onclick="deletarMateria(${index})" class="absolute top-6 right-6 text-red-300 hover:text-red-600 font-bold text-xs uppercase tracking-widest bg-red-50 px-3 py-1 rounded-full transition-colors">Deletar 🗑️</button>
-                            <h2 class="text-2xl font-bold text-slate-900 mb-4">${m.nome}</h2>
-                            <p class="text-lg leading-relaxed text-slate-600">${m.texto}</p>
-                        </section>
-                    `;
-                });
-            }
-            if(loadingBox) loadingBox.style.display = 'none';
-        }
-
-        function abrirModal() {
-            const modal = document.getElementById('modal');
-            if(modal) modal.style.display = 'flex';
-        }
-
-        function fecharModal() { 
-            document.getElementById('modal').style.display = 'none'; 
-            // Limpa os campos do formulário ao fechar
-            document.getElementById('form-nome').value = '';
-            document.getElementById('form-texto').value = '';
-        }
-
-        function executarCadastro() {
-            const nome = document.getElementById('form-nome').value.trim();
-            const texto = document.getElementById('form-texto').value.trim();
-            
-            if(!nome || !texto) return alert("Preencha o título e o conteúdo!");
-
-            listaMaterias.push({ nome: nome, texto: texto });
-            salvarDados();
-            renderizarSite();
-            fecharModal();
-        }
-
-        function deletarMateria(index) {
-            if (confirm(`Tem certeza que deseja apagar a matéria "${listaMaterias[index].nome}"?`)) {
-                listaMaterias.splice(index, 1);
-                salvarDados();
-                renderizarSite();
-            }
-        }
-        
-        // Inicializa o site ao carregar a página
-        carregar();
-    </script>
 </body>
 </html>
